@@ -101,68 +101,68 @@ public:
                 return; //end function call
             }
             else //if temp isn't out of list
-                temp = temp->next; //temp points to next node in list
+                temp = temp->next; //temp points to next node in list (temp will be node to delete)
         }
-        if (!temp) {
-            cout << "Position doesn't exist." << endl;
-            return;
-        }
-    
-        if (!temp->next) {
-            pop_back();
-            return;
+        if (!temp) { //if temp is out of list
+            cout << "Position doesn't exist." << endl; //display error message
+            return; //end function call
         }
     
-        Node* tempPrev = temp->prev;
-        tempPrev->next = temp->next;
-        temp->next->prev = tempPrev;
-        delete temp;
+        if (!temp->next) { //if temp is end of list
+            pop_back(); //delete last item in list
+            return; //end function call
+        }
+    
+        Node* tempPrev = temp->prev; //create node pointer pointing to node before temp
+        tempPrev->next = temp->next; //next of node before temp becomes node after temp
+        temp->next->prev = tempPrev; //prev of node after temp becomes node before temp
+        delete temp; //delete node at given position
     }
 
-    void push_back(int v) {
-        Node* newNode = new Node(v);
-        if (!tail)
-            head = tail = newNode;
-        else {
-            tail->next = newNode;
-            newNode->prev = tail;
-            tail = newNode;
-        }
-    }
-    
-    void push_front(int v) {
-        Node* newNode = new Node(v);
-        if (!head)
-            head = tail = newNode;
-        else {
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
+    void push_back(int v) { //add item with value v to end of list
+        Node* newNode = new Node(v); //create new node with value v
+        if (!tail) //if list is empty
+            head = tail = newNode; //first and last items of list are newnode
+        else { //list is not empty
+            tail->next = newNode; //next of last item becomes newnode
+            newNode->prev = tail; //prev of newnode is original last node
+            tail = newNode; //end of list is now newnode
         }
     }
     
-    void pop_front() {
+    void push_front(int v) { //add item to beginning of list
+        Node* newNode = new Node(v); //create new node with value v
+        if (!head) //if list is empty
+            head = tail = newNode; //first and last items of list are newnode
+        else { //list is not empty
+            newNode->next = head; //next of newnode is original fist node
+            head->prev = newNode; //prev of original first item is newnode
+            head = newNode; //new first node is newnode
+        }
+    }
+    
+    void pop_front() { //remove first item in list
 
-        if (!head) {
-            cout << "List is empty." << endl;
-            return;
+        if (!head) { //if list is empty
+            cout << "List is empty." << endl; //display error message
+            return; //end function call
         }
 
-        Node * temp = head;
+        Node * temp = head; //create new temp pointer to head node
 
-        if (head->next) {
-            head = head->next;
-            head->prev = nullptr;
+        if (head->next) { //if head is not the only item in the list
+            head = head->next; //original second item becomes first item
+            head->prev = nullptr; //prev of new head is nullptr
         }
-        else
-            head = tail = nullptr;
-        delete temp;
+        else //first item is only item
+            head = tail = nullptr; //make list empty
+        delete temp; //delete temp which is the original first node
     }
 
-    void pop_back() {
-        if (!tail) {
-            cout << "List is empty." << endl;
-            return;
+    void pop_back() { //remove the last item in the list
+        if (!tail) { //if list is empty
+            cout << "List is empty." << endl; //display error message
+            return; //end function call
         }
         Node * temp = tail;
 
