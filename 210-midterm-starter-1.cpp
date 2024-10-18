@@ -148,7 +148,7 @@ public:
             return; //end function call
         }
 
-        Node * temp = head; //create new temp pointer to head node
+        Node * temp = head; //create temp pointer to head node
 
         if (head->next) { //if head is not the only item in the list
             head = head->next; //original second item becomes first item
@@ -164,54 +164,75 @@ public:
             cout << "List is empty." << endl; //display error message
             return; //end function call
         }
-        Node * temp = tail;
+        Node * temp = tail; //create node pointer temp pointing to the end of the list
 
-        if (tail->prev) {
-            tail = tail->prev;
-            tail->next = nullptr;
+        if (tail->prev) { //if tail is not the only node
+            tail = tail->prev; //new last item is the item before old last item
+            tail->next = nullptr; //next of new tail is nullptr
         }
-        else
-            head = tail = nullptr;
-        delete temp;
+        else //last item is the only item
+            head = tail = nullptr; //make list empty
+        delete temp; //delete temp aka last node
     }
 
-    ~DoublyLinkedList() {
-        while (head) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
+    ~DoublyLinkedList() { //deconstructor
+        while (head) { //while list isn't empty
+            Node* temp = head; //create node pointer to head
+            head = head->next; //move head pointer to next node in list
+            delete temp; //delete old head
         }
     }
-    void print() {
-        Node* current = head;
-        if (!current) {
-            cout << "List is empty." << endl;
-            return;
+    void print() { //print function
+        Node* current = head; //create node pointer to head
+        if (!current) { //if list is empty
+            cout << "List is empty." << endl; //display list is empty
+            return; //end function call
         }
-        while (current) {
-            cout << current->data << " ";
-            current = current->next;
+        while (current) { //while current isn't nullptr (while it's pointing to the list)
+            cout << current->data << " "; //display the data of the current node + a space
+            current = current->next; //move current ptr to next item in list
         }
-        cout << endl;
+        cout << endl; //linebreak
     }
 
-    void print_reverse() {
-        Node* current = tail;
-        if (!current) { 
-            cout << "List is empty." << endl;
-            return;
+    void print_reverse() { //print in reverse order
+        Node* current = tail; //create node pointer to tail
+        if (!current) { //if list is empty
+            cout << "List is empty." << endl; //display list is empty
+            return; //end function call
         }
-        while (current) {
-            cout << current->data << " ";
-            current = current->prev;
+        while (current) { //while current isn't outside the list
+            cout << current->data << " "; //display data of current node + space
+            current = current->prev; //move current ptr to previous item in the list
         }
-        cout << endl;
+        cout << endl; //linebreak
+    }
+
+    void every_other_element() {
+    	Node* current = head;
+    	if (!current) {
+    		cout << "List is empty." << endl;
+    		return;
+    	}
+    	while (current) {
+    		if ()
+    			cout << current->data << " ";
+    		current = current->prev;
+    	}
+    	cout << endl;
     }
 };
 
-int main() {
-    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
+int main() { //main function
+    DoublyLinkedList list;
 
-    
-    return 0;
+    list.push_front(1);
+    list.push_front(2);
+    list.push_front(3);
+    list.push_front(4);
+    list.push_front(5);
+
+    list.every_other_element();
+
+    return 0; //end program return 0
 }
