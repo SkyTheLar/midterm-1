@@ -208,30 +208,37 @@ public:
         cout << endl; //linebreak
     }
 
+    //function to display every other element
     void every_other_element() {
-    	Node* current = head;
-    	if (!current) {
-    		cout << "List is empty." << endl;
-    		return;
+    	Node* current = head; //node pointer to head
+    	int count = 1; //counter int starts at 1
+    	if (!current) { //if list is empty
+    		cout << "List is empty." << endl; //display list is empty
+    		return; //end function call
     	}
-    	while (current) {
-    		if ()
-    			cout << current->data << " ";
-    		current = current->prev;
+    	while (current) { //while current is in list
+    		if (count % 2 == 1) //if count is odd
+    			cout << current->data << " "; //display the data in current
+    		current = current->next; //current to next node
+    		count++; //increment counter
     	}
-    	cout << endl;
+    	cout << endl; //linebreak
     }
 };
 
 int main() { //main function
-    DoublyLinkedList list;
+    DoublyLinkedList list; //make list
 
-    list.push_front(1);
-    list.push_front(2);
-    list.push_front(3);
-    list.push_front(4);
-    list.push_front(5);
+    //populate list with 1-20
+    for (int i = 0; i < 20; i++) {
+    	list.push_back(i + 1);
+    }
 
+    //display whole list
+    cout << "Entire List: ";
+    list.print();
+    //display every other
+    cout << "Every other element: ";
     list.every_other_element();
 
     return 0; //end program return 0
